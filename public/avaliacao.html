@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliações</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Gerenciar Avaliações</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="funcionarios.html">Funcionários</a></li>
+                <li><a href="curriculos.html">Currículos</a></li>
+                <li><a href="bonificacoes.html">Bonificações</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Registro de Avaliação</h2>
+        <form id="avaliacaoForm">
+            <label for="funcionarioId">ID do Funcionário:</label>
+            <input type="number" id="funcionarioId" required>
+
+            <label for="aproveitamento">Aproveitamento:</label>
+            <input type="text" id="aproveitamento" required>
+
+            <button type="submit">Registrar Avaliação</button>
+        </form>
+
+        <h2>Lista de Avaliações</h2>
+        <ul id="listaAvaliacoes"></ul>
+    </main>
+    <footer>
+        <p>&copy; 2024 - Sistema de Recursos Humanos</p>
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
