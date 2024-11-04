@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Currículo</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f3f1e7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            background-color: #e8dfd0;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #8c674a;
+        }
+        .form-control {
+            border-radius: 8px;
+        }
+        .btn-primary {
+            background-color: #8c674a;
+            border: none;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        .btn-primary:hover {
+            background-color: #725238;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Cadastro de Currículo</h2>
+        <form>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" placeholder="Nome do Candidato">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input type="text" class="form-control" id="telefone" placeholder="Telefone">
+            </div>
+            <div class="form-group">
+                <label for="cargo">Cargo Pretendido</label>
+                <input type="text" class="form-control" id="cargo" placeholder="Cargo Pretendido">
+            </div>
+            <div class="form-group">
+                <label for="curriculo">Anexar Currículo</label>
+                <input type="file" class="form-control-file" id="curriculo">
+            </div>
+            <button type="submit" class="btn btn-primary">Cadastrar Currículo</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Bonificações</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f3f1e7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            background-color: #e8dfd0;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .table thead {
+            background-color: #8c674a;
+            color: white;
+        }
+        .table tbody tr:hover {
+            background-color: #f0e4d4;
+        }
+        .btn-primary {
+            background-color: #8c674a;
+            border: none;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        .btn-primary:hover {
+            background-color: #725238;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Consulta de Bonificações</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Funcionário</th>
+                    <th>Equipe</th>
+                    <th>Data</th>
+                    <th>Tipo de Bonificação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Funcionário 1</td>
+                    <td>Equipe A</td>
+                    <td>01/10/2024</td>
+                    <td>Cesta Básica</td>
+                </tr>
+                <tr>
+                    <td>Funcionário 2</td>
+                    <td>Equipe B</td>
+                    <td>01/10/2024</td>
+                    <td>Cesta Básica</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

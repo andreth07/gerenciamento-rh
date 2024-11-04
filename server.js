@@ -182,3 +182,30 @@ app.delete('/api/avaliacoes/:id', (req, res) => {
     avaliacoes = avaliacoes.filter(a => a.id !== id);
     res.status(200).send({ message: 'Avaliação removida com sucesso!' });
 });
+
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://bancoteste26:testebanco123@gerenciamento-rh.s2rsu.mongodb.net/')
+    .then(() => {
+        console.log('Conectado ao MongoDB');
+    })
+    .catch((error) => {
+        console.error('Erro ao conectar ao MongoDB:', error);
+    });
+
+app.get('/api/bonificacoes/avaliacao', (req, res) => {
+    const mediaFuncionarios = funcionarios.map(funcionario => {
+        const avaliacoesFuncionario = avaliacoes.filter(a => a.funcionarioId === funcionario.id);
+        const mediaNota = avaliacoesFuncionario.length > 0 
+            ? avaliacoesFuncionario.reduce((acc, curr) => acc + curr.nota, 0) / avaliacoesFuncionario.length
+            : 0;
+        return { id: funcionario.id, nome: funcionario.nome, mediaNota };
+    });
+
+    mediaFuncionarios.sort((a, b) => b.mediaNota - a.mediaNota);
+    
+    res.send({
+        melhorFuncionario: mediaFuncionarios[0] || null,
+        piorFuncionario: mediaFuncionarios[mediaFuncionarios.length - 1] || null
+    });
+});

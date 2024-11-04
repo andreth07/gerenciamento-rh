@@ -1,44 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliações</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Avaliação de Funcionários</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f3f1e7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            background-color: #e8dfd0;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #8c674a;
+        }
+        .form-control {
+            border-radius: 8px;
+        }
+        .btn-primary {
+            background-color: #8c674a;
+            border: none;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        .btn-primary:hover {
+            background-color: #725238;
+        }
+    </style>
 </head>
-
 <body>
-    <header>
-        <h1>Gerenciar Avaliações</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Início</a></li>
-                <li><a href="funcionarios.html">Funcionários</a></li>
-                <li><a href="curriculos.html">Currículos</a></li>
-                <li><a href="bonificacoes.html">Bonificações</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <h2>Registro de Avaliação</h2>
-        <form id="avaliacaoForm">
-            <label for="funcionarioId">ID do Funcionário:</label>
-            <input type="number" id="funcionarioId" required>
-
-            <label for="aproveitamento">Aproveitamento:</label>
-            <input type="text" id="aproveitamento" required>
-
-            <button type="submit">Registrar Avaliação</button>
+    <div class="container mt-5">
+        <h2>Avaliação de Funcionários</h2>
+        <form>
+            <div class="form-group">
+                <label for="funcionario">Funcionário</label>
+                <select class="form-control" id="funcionario">
+                    <option>Funcionário 1</option>
+                    <option>Funcionário 2</option>
+                    <option>Funcionário 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="desempenho">Desempenho</label>
+                <input type="number" class="form-control" id="desempenho" placeholder="Nota de 1 a 10">
+            </div>
+            <button type="submit" class="btn btn-primary">Registrar Avaliação</button>
         </form>
-
-        <h2>Lista de Avaliações</h2>
-        <ul id="listaAvaliacoes"></ul>
-    </main>
-    <footer>
-        <p>&copy; 2024 - Sistema de Recursos Humanos</p>
-    </footer>
-    <script src="js/script.js"></script>
+    </div>
 </body>
-
 </html>

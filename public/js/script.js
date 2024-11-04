@@ -171,3 +171,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Funções para listar bonificações e avaliações serão semelhantes a essas.
 });
+
+async function carregarBonificacaoAvaliacao() {
+    const response = await fetch('/api/bonificacoes/avaliacao');
+    const data = await response.json();
+
+    if (data.melhorFuncionario) {
+        alert(`Melhor Funcionário: ${data.melhorFuncionario.nome} com média ${data.melhorFuncionario.mediaNota}`);
+    }
+
+    if (data.piorFuncionario) {
+        alert(`Pior Funcionário: ${data.piorFuncionario.nome} com média ${data.piorFuncionario.mediaNota}`);
+    }
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Funcionário</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f2eee9;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            background-color: #e0d5c8;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        .container h2 {
+            color: #5b4234;
+            font-weight: bold;
+        }
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #a49282;
+            background-color: #f8f6f4;
+        }
+        .btn-primary {
+            background-color: #7b5e45;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #5e4937;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Cadastro de Funcionário</h2>
+        <form>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" placeholder="Nome do Funcionário">
+            </div>
+            <div class="form-group">
+                <label for="cargo">Cargo</label>
+                <input type="text" class="form-control" id="cargo" placeholder="Cargo">
+            </div>
+            <div class="form-group">
+                <label for="dataEntrada">Data de Entrada</label>
+                <input type="date" class="form-control" id="dataEntrada">
+            </div>
+            <button type="submit" class="btn btn-primary"><a href="avaliação.html">Cadastrar</a></button>
+        </form>
+    </div>
+</body>
+</html>
