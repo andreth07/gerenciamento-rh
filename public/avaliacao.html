@@ -54,4 +54,22 @@
         </form>
     </div>
 </body>
+<script>
+    document.querySelector('form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('nome').value;
+        const position = document.getElementById('cargo').value;
+        const entryDate = document.getElementById('dataEntrada').value;
+
+        const response = await fetch('/api/employees/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, position, entryDate })
+        });
+
+        const result = await response.json();
+        alert(result.message);
+    });
+</script>
+
 </html>
