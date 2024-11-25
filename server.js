@@ -1,211 +1,276 @@
+require('dotenv').config();
 const express = require('express');
-const app = express();
-app.use(express.json());
-
-
-
-
-let funcionarios = [];
-
-
-app.post('/api/funcionarios', (req, res) => {
-    const { nome, cargo, data_admissao } = req.body;
-    const novoFuncionario = {
-        id: funcionarios.length + 1,
-        nome,
-        cargo,
-        data_admissao
-    };
-    funcionarios.push(novoFuncionario);
-    res.status(201).send(novoFuncionario);
-});
-
-
-app.get('/api/funcionarios', (req, res) => {
-    res.status(200).send(funcionarios);
-});
-
-
-app.get('/api/funcionarios/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const funcionario = funcionarios.find(f => f.id === id);
-    if (!funcionario) return res.status(404).send('Funcionário não encontrado');
-    res.status(200).send(funcionario);
-});
-
-
-app.put('/api/funcionarios/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const { nome, cargo, data_admissao } = req.body;
-    let funcionario = funcionarios.find(f => f.id === id);
-    if (!funcionario) return res.status(404).send('Funcionário não encontrado');
-    
-    funcionario.nome = nome;
-    funcionario.cargo = cargo;
-    funcionario.data_admissao = data_admissao;
-    
-    res.status(200).send(funcionario);
-});
-
-
-app.delete('/api/funcionarios/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    funcionarios = funcionarios.filter(f => f.id !== id);
-    res.status(200).send({ message: 'Funcionário removido com sucesso!' });
-});
-
-
-app.listen(3000, () => {
-    console.log('Servidor rodando na porta 3000');
-});
-
-
-let curriculos = [];
-
-
-app.post('/api/curriculos', (req, res) => {
-    const { nome_candidato, email, cargo_pretendido, link_curriculo } = req.body;
-    
-    const novoCurriculo = {
-        id: curriculos.length + 1,
-        nome_candidato,
-        email,
-        cargo_pretendido,
-        link_curriculo
-    };
-    
-    curriculos.push(novoCurriculo);
-    res.status(201).send(novoCurriculo);
-});
-
-
-app.get('/api/curriculos', (req, res) => {
-    res.status(200).send(curriculos);
-});
-
-
-app.get('/api/curriculos/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const curriculo = curriculos.find(c => c.id === id);
-    
-    if (!curriculo) return res.status(404).send('Currículo não encontrado');
-    res.status(200).send(curriculo);
-});
-
-
-app.put('/api/curriculos/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const { nome_candidato, email, cargo_pretendido, link_curriculo } = req.body;
-    
-    let curriculo = curriculos.find(c => c.id === id);
-    if (!curriculo) return res.status(404).send('Currículo não encontrado');
-    
-    curriculo.nome_candidato = nome_candidato;
-    curriculo.email = email;
-    curriculo.cargo_pretendido = cargo_pretendido;
-    curriculo.link_curriculo = link_curriculo;
-    
-    res.status(200).send(curriculo);
-});
-
-
-app.delete('/api/curriculos/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    curriculos = curriculos.filter(c => c.id !== id);
-    res.status(200).send({ message: 'Currículo removido com sucesso!' });
-});
-
-
-
-let bonificacoes = [];
-
-
-app.post('/api/bonificacoes', (req, res) => {
-    const { funcionarioId, tipo } = req.body;
-    const funcionario = funcionarios.find(f => f.id === funcionarioId);
-    if (!funcionario) return res.status(404).send('Funcionário não encontrado');
-
-    const novaBonificacao = {
-        id: bonificacoes.length + 1,
-        funcionarioId,
-        tipo,
-        data: new Date()
-    };
-    bonificacoes.push(novaBonificacao);
-    res.status(201).send(novaBonificacao);
-});
-
-app.get('/api/bonificacoes', (req, res) => {
-    res.status(200).send(bonificacoes);
-});
-
-
-let avaliacoes = [];
-
-
-app.post('/api/avaliacoes', (req, res) => {
-    const { funcionarioId, nota, comentario } = req.body;
-
-   
-    const funcionario = funcionarios.find(f => f.id === funcionarioId);
-    if (!funcionario) return res.status(404).send('Funcionário não encontrado');
-
-    const novaAvaliacao = {
-        id: avaliacoes.length + 1,
-        funcionarioId,
-        nota,
-        comentario,
-        data: new Date()
-    };
-
-    avaliacoes.push(novaAvaliacao);
-    res.status(201).send(novaAvaliacao);
-});
-
-
-app.get('/api/avaliacoes', (req, res) => {
-    res.status(200).send(avaliacoes);
-});
-
-
-app.get('/api/avaliacoes/funcionario/:funcionarioId', (req, res) => {
-    const funcionarioId = parseInt(req.params.funcionarioId);
-    const avaliacoesFuncionario = avaliacoes.filter(a => a.funcionarioId === funcionarioId);
-    
-    if (avaliacoesFuncionario.length === 0) return res.status(404).send('Nenhuma avaliação encontrada para este funcionário');
-    res.status(200).send(avaliacoesFuncionario);
-});
-
-
-app.delete('/api/avaliacoes/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    avaliacoes = avaliacoes.filter(a => a.id !== id);
-    res.status(200).send({ message: 'Avaliação removida com sucesso!' });
-});
-
 const mongoose = require('mongoose');
+const cors = require('cors');
+const path = require('path');
+const app = express();
 
-mongoose.connect('mongodb+srv://bancoteste26:testebanco123@gerenciamento-rh.s2rsu.mongodb.net/')
-    .then(() => {
-        console.log('Conectado ao MongoDB');
-    })
-    .catch((error) => {
-        console.error('Erro ao conectar ao MongoDB:', error);
-    });
+// Middleware
+app.use(express.json());
+app.use(express.static('public'));
+app.use(cors());
 
-app.get('/api/bonificacoes/avaliacao', (req, res) => {
-    const mediaFuncionarios = funcionarios.map(funcionario => {
-        const avaliacoesFuncionario = avaliacoes.filter(a => a.funcionarioId === funcionario.id);
-        const mediaNota = avaliacoesFuncionario.length > 0 
-            ? avaliacoesFuncionario.reduce((acc, curr) => acc + curr.nota, 0) / avaliacoesFuncionario.length
-            : 0;
-        return { id: funcionario.id, nome: funcionario.nome, mediaNota };
-    });
+// Conectar ao MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('Conectado ao MongoDB'))
+.catch(err => console.error('Erro ao conectar ao MongoDB:', err));
 
-    mediaFuncionarios.sort((a, b) => b.mediaNota - a.mediaNota);
-    
-    res.send({
-        melhorFuncionario: mediaFuncionarios[0] || null,
-        piorFuncionario: mediaFuncionarios[mediaFuncionarios.length - 1] || null
-    });
+// Schema do Funcionário
+const funcionarioSchema = new mongoose.Schema({
+    nomeCompleto: {
+        type: String,
+        required: true
+    },
+    cargo: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    equipe: {
+        type: String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+// Schema da Equipe
+const equipeSchema = new mongoose.Schema({
+    nome: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    lider: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Funcionario',
+        required: true
+    },
+    membros: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Funcionario'
+    }],
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+// Schema do Currículo
+const curriculoSchema = new mongoose.Schema({
+    nome: {
+        type: String,
+        required: true
+    },
+    cargoPretendido: {
+        type: String,
+        required: true
+    },
+    linkCurriculo: {
+        type: String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+const Funcionario = mongoose.model('Funcionario', funcionarioSchema);
+const Equipe = mongoose.model('Equipe', equipeSchema);
+const Curriculo = mongoose.model('Curriculo', curriculoSchema);
+
+// Rota raiz
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Rotas para Funcionários
+app.get('/api/funcionarios', async (req, res) => {
+    try {
+        const funcionarios = await Funcionario.find();
+        res.json(funcionarios);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar funcionários', error: error.message });
+    }
+});
+
+app.post('/api/funcionarios', async (req, res) => {
+    try {
+        const funcionario = new Funcionario(req.body);
+        await funcionario.save();
+        res.status(201).json(funcionario);
+    } catch (error) {
+        if (error.code === 11000) {
+            res.status(400).json({ message: 'Email já cadastrado' });
+        } else {
+            res.status(500).json({ message: 'Erro ao cadastrar funcionário', error: error.message });
+        }
+    }
+});
+
+app.put('/api/funcionarios/:id', async (req, res) => {
+    try {
+        const funcionario = await Funcionario.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+        if (!funcionario) {
+            return res.status(404).json({ message: 'Funcionário não encontrado' });
+        }
+        res.json(funcionario);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao atualizar funcionário', error: error.message });
+    }
+});
+
+app.delete('/api/funcionarios/:id', async (req, res) => {
+    try {
+        const funcionario = await Funcionario.findByIdAndDelete(req.params.id);
+        if (!funcionario) {
+            return res.status(404).json({ message: 'Funcionário não encontrado' });
+        }
+        res.json({ message: 'Funcionário removido com sucesso' });
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao remover funcionário', error: error.message });
+    }
+});
+
+// Rotas para Equipes
+app.get('/api/equipes', async (req, res) => {
+    try {
+        const equipes = await Equipe.find()
+            .populate('lider', 'nomeCompleto')
+            .populate('membros', 'nomeCompleto');
+        res.json(equipes);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar equipes', error: error.message });
+    }
+});
+
+app.get('/api/equipes/:id', async (req, res) => {
+    try {
+        const equipe = await Equipe.findById(req.params.id)
+            .populate('lider', 'nomeCompleto')
+            .populate('membros', 'nomeCompleto');
+        if (!equipe) {
+            return res.status(404).json({ message: 'Equipe não encontrada' });
+        }
+        res.json(equipe);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar equipe', error: error.message });
+    }
+});
+
+app.post('/api/equipes', async (req, res) => {
+    try {
+        if (req.body.membros.length < 5) {
+            return res.status(400).json({ message: 'A equipe deve ter no mínimo 5 membros' });
+        }
+
+        const equipe = new Equipe(req.body);
+        await equipe.save();
+        
+        const equipePopulada = await Equipe.findById(equipe._id)
+            .populate('lider', 'nomeCompleto')
+            .populate('membros', 'nomeCompleto');
+            
+        res.status(201).json(equipePopulada);
+    } catch (error) {
+        if (error.code === 11000) {
+            res.status(400).json({ message: 'Já existe uma equipe com este nome' });
+        } else {
+            res.status(500).json({ message: 'Erro ao criar equipe', error: error.message });
+        }
+    }
+});
+
+app.put('/api/equipes/:id', async (req, res) => {
+    try {
+        if (req.body.membros && req.body.membros.length < 5) {
+            return res.status(400).json({ message: 'A equipe deve ter no mínimo 5 membros' });
+        }
+
+        const equipe = await Equipe.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        )
+        .populate('lider', 'nomeCompleto')
+        .populate('membros', 'nomeCompleto');
+
+        if (!equipe) {
+            return res.status(404).json({ message: 'Equipe não encontrada' });
+        }
+
+        res.json(equipe);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao atualizar equipe', error: error.message });
+    }
+});
+
+app.delete('/api/equipes/:id', async (req, res) => {
+    try {
+        const equipe = await Equipe.findByIdAndDelete(req.params.id);
+        if (!equipe) {
+            return res.status(404).json({ message: 'Equipe não encontrada' });
+        }
+        res.json({ message: 'Equipe removida com sucesso' });
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao remover equipe', error: error.message });
+    }
+});
+
+// Rotas para Currículos
+app.get('/api/curriculos', async (req, res) => {
+    try {
+        const curriculos = await Curriculo.find().sort({ createdAt: -1 });
+        res.json(curriculos);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar currículos', error: error.message });
+    }
+});
+
+app.post('/api/curriculos', async (req, res) => {
+    try {
+        const curriculo = new Curriculo(req.body);
+        await curriculo.save();
+        res.status(201).json(curriculo);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao cadastrar currículo', error: error.message });
+    }
+});
+
+app.delete('/api/curriculos/:id', async (req, res) => {
+    try {
+        const curriculo = await Curriculo.findByIdAndDelete(req.params.id);
+        if (!curriculo) {
+            return res.status(404).json({ message: 'Currículo não encontrado' });
+        }
+        res.json({ message: 'Currículo removido com sucesso' });
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao remover currículo', error: error.message });
+    }
+});
+
+// Tratamento de erros
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Algo deu errado!', error: err.message });
+});
+
+// Iniciar servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
 });

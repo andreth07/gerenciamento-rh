@@ -1,50 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currículos</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Cadastro de Currículos</title>
+    <link rel="stylesheet" href="curriculos.css">
 </head>
-
 <body>
-    <header>
-        <h1>Gerenciar Currículos</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Início</a></li>
-                <li><a href="funcionarios.html">Funcionários</a></li>
-                <li><a href="bonificacoes.html">Bonificações</a></li>
-                <li><a href="avaliacao.html">Avaliações</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <h2>Cadastro de Currículo</h2>
-        <form id="curriculoForm">
-            <label for="nome_candidato">Nome do Candidato:</label>
-            <input type="text" id="nome_candidato" required>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="/" class="nav-link">Funcionários</a>
+            <a href="/equipes.html" class="nav-link">Equipes</a>
+            <a href="/curriculos.html" class="nav-link active">Currículos</a>
+        </div>
+    </nav>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
+    <div class="container">
+        <header>
+            <h1>Cadastro de Currículos</h1>
+        </header>
 
-            <label for="cargo_pretendido">Cargo Pretendido:</label>
-            <input type="text" id="cargo_pretendido" required>
+        <!-- Formulário de cadastro -->
+        <div class="form-section">
+            <form id="curriculoForm">
+                <div class="form-group">
+                    <label for="nome">Nome Completo:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
 
-            <label for="link_curriculo">Link do Currículo:</label>
-            <input type="url" id="link_curriculo" required>
+                <div class="form-group">
+                    <label for="cargoPretendido">Cargo Pretendido:</label>
+                    <input type="text" id="cargoPretendido" name="cargoPretendido" required>
+                </div>
 
-            <button type="submit">Cadastrar Currículo</button>
-        </form>
+                <div class="form-group">
+                    <label for="linkCurriculo">Link do Currículo:</label>
+                    <input type="url" id="linkCurriculo" name="linkCurriculo" 
+                           placeholder="https://exemplo.com/curriculo" required>
+                </div>
 
-        <h2>Lista de Currículos</h2>
-        <ul id="listaCurriculos"></ul>
-    </main>
-    <footer>
-        <p>&copy; 2024 - Sistema de Recursos Humanos</p>
-    </footer>
-    <script src="js/script.js"></script>
+                <button type="submit" class="btn-principal">Cadastrar Currículo</button>
+            </form>
+        </div>
+
+        <!-- Lista de currículos -->
+        <div class="curriculos-section">
+            <h2>Currículos Cadastrados</h2>
+            <div class="lista-curriculos" id="listaCurriculos">
+                <!-- Cards de currículos serão inseridos aqui via JavaScript -->
+            </div>
+        </div>
+    </div>
+    <script src="curriculos.js"></script>
 </body>
-
 </html>
