@@ -1,105 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        /* Estilo para a imagem de fundo */
-        body {
-            background-image: url('https://images.pexels.com/photos/5502224/pexels-photo-5502224.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); /* URL da imagem de fundo */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Estilo para o card de login */
-        .login-card {
-            background-color: rgba(255, 255, 255, 0.9); /* Fundo opaco */
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            max-width: 400px;
-            width: 100%;
-        }
-
-        .login-header {
-            font-size: 24px;
-            font-weight: bold;
-            color: #8c674a;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .form-control {
-            border-radius: 8px;
-        }
-
-        .btn-primary {
-            background-color: #8c674a;
-            border: none;
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: background-color 0.3s;
-        }
-
-        .btn-primary:hover {
-            background-color: #725238;
-        }
-
-        .card-footer {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .card-footer a {
-            color: #8c674a;
-            text-decoration: none;
-        }
-
-        .card-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .logo {
-            display: block;
-            margin: 0 auto 20px auto; /* Centraliza a logo */
-            width: 100px; /* Largura da logo */
-            height: auto; /* Altura automática para manter a proporção */
-        }
-    </style>
+    <title>Cadastro de Funcionários</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="login-card">
-        <img src="/img/c44a7abf-bdf4-4a09-9094-4a7f0b907a67-removebg-preview (1).png" alt="Logo" class="logo">
-        <div class="login-header">Acesso ao Sistema</div>
-        <form>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="/" class="nav-link active">Funcionários</a>
+            <a href="/equipes.html" class="nav-link">Equipes</a>
+            <a href="/curriculos.html" class="nav-link">Currículos</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Cadastro de Funcionários</h1>
+        </header>
+
+        <form id="funcionarioForm">
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Digite seu email">
+                <label for="nomeCompleto">Nome Completo:</label>
+                <input type="text" id="nomeCompleto" required>
             </div>
+
             <div class="form-group">
-                <label for="password">Senha</label>
-                <input type="password" class="form-control" id="password" placeholder="Digite sua senha">
+                <label for="cargo">Cargo:</label>
+                <input type="text" id="cargo" required>
             </div>
-            <button type="submit" class="btn btn-primary mt-3"><a href="dashboard.html">Entrar</a></button>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="equipe">Equipe:</label>
+                <select id="equipe" required>
+                    <option value="">Selecione uma equipe</option>
+                    <option value="desenvolvimento">Desenvolvimento</option>
+                    <option value="design">Design</option>
+                    <option value="marketing">Marketing</option>
+                </select>
+            </div>
+
+            <button type="submit">Cadastrar Funcionário</button>
         </form>
-        <div class="card-footer">
-            <a href="#">Esqueceu sua senha?</a>
+
+        <div class="lista-funcionarios">
+            <h2>Funcionários Cadastrados</h2>
+            <div id="funcionariosList" class="funcionarios-grid">
+                <!-- Lista de funcionários será inserida aqui via JavaScript -->
+            </div>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
