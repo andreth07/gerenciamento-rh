@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RH Movelaria - Registro</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="register-container">
+        <h1 class="register-title">RH Movelaria</h1>
+        <div class="register-form">
+            <h2 class="form-title">Registro</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="name">Nome Completo</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Função</label>
+                    <select id="role" name="role" required>
+                        <option value="">Selecione sua função</option>
+                        <option value="admin">Administrador</option>
+                        <option value="team-leader">Líder de Equipe</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Registrar</button>
+            </form>
+            <p class="login-link">Já tem uma conta? <a href="login.html">Entrar</a></p>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

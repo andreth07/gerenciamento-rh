@@ -86,6 +86,35 @@ async function excluirFuncionario(id) {
     }
 }
 
+async function carregarAvaliacoes() {
+    try {
+        const response = await fetch('/api/avaliacoes');
+        const avaliacoes = await response.json();
+
+        const container = document.getElementById('avaliacoesContainer');
+        container.innerHTML = '';
+
+        avaliacoes.forEach(avaliacao => {
+            const div = document.createElement('div');
+            div.innerHTML = `
+                <h3>Equipe: ${avaliacao.equipe.nome}</h3>
+                <p>Avaliador: ${avaliacao.avaliador.nomeCompleto}</p>
+                <ul>
+                    ${avaliacao.avaliacoes.map(a => `
+                        <li>${a.funcionario.nomeCompleto}: ${a.nota}</li>
+                    `).join('')}
+                </ul>
+            `;
+            container.appendChild(div);
+        });
+    } catch (error) {
+        console.error('Erro ao carregar avaliações:', error);
+    }
+}
+
+carregarAvaliacoes();
+
+
 function editarFuncionario(id) {
     // Implementar a funcionalidade de edição
     alert('Funcionalidade de edição em desenvolvimento');

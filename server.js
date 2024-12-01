@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const app = express();
+const dotenv = require('dotenv');
 
 // Middleware
 app.use(express.json());
@@ -262,6 +263,51 @@ app.delete('/api/curriculos/:id', async (req, res) => {
         res.status(500).json({ message: 'Erro ao remover currículo', error: error.message });
     }
 });
+
+// server.js
+app.get('/equipe-lider', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'equipe-lider.html'));
+});
+
+// server.js
+// server.js
+app.post('/api/equipes/:id/avaliacao', async (req, res) => {
+    try {
+        const equipeId = req.params.id;
+        const { avaliacao, comentarios } = req.body;
+
+        // Salvar as avaliações e comentários no banco de dados
+        await Equipe.findByIdAndUpdate(equipeId, { avaliacoes: avaliacao, comentarios });
+
+        res.json({ message: 'Avaliação salva com sucesso' });
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao salvar avaliação', error: error.message });
+    }
+});
+
+// server.js
+app.get('/api/equipes', async (req, res) => {
+    try {
+        const equipes = await Equipe.find()
+            .populate('lider', 'nomeCompleto')
+            .populate('membros', 'nomeCompleto');
+        res.json(equipes);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar equipes', error: error.message });
+    }
+});
+
+app.get('/api/avaliacoes', async (req, res) => {
+    try {
+        const avaliacoes = await Avaliacao.find().populate('equipe').populate('membros');
+        res.json(avaliacoes);
+    } catch (error) {
+        console.error('Erro ao buscar avaliações:', error);
+        res.status(500).json({ message: 'Erro ao buscar avaliações' });
+    }
+});
+
+
 
 // Tratamento de erros
 app.use((err, req, res, next) => {

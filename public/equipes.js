@@ -13,17 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modalTitle').textContent = 'Nova Equipe';
         document.getElementById('equipeForm').reset();
         document.getElementById('contadorMembros').textContent = '0';
-    }
+    };
 
     span.onclick = () => {
         modal.style.display = 'none';
-    }
+    };
 
     window.onclick = (event) => {
         if (event.target == modal) {
             modal.style.display = 'none';
         }
-    }
+    };
 
     // Form submit
     document.getElementById('equipeForm').addEventListener('submit', handleEquipeSubmit);
@@ -157,9 +157,7 @@ function criarCardEquipe(equipe) {
             <div class="equipe-membros">
                 <strong>Membros da Equipe:</strong>
                 <ul>
-                    ${membros.map(membro => 
-                        `<li>${membro.nomeCompleto || 'Nome não disponível'}</li>`
-                    ).join('')}
+                    ${membros.map(membro => membro.nomeCompleto ? `<li>${membro.nomeCompleto}</li>` : '<li>Nome não disponível</li>').join('')}
                 </ul>
             </div>
         </div>
