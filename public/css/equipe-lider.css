@@ -1,0 +1,170 @@
+/* Reset e Estilo Global */  
+body {  
+    font-family: 'Poppins', sans-serif;  
+    margin: 0;  
+    padding: 0;  
+    background-color: #ffffff;  
+    color: #5c4033;  
+}  
+
+/* Estilo do Conteúdo Principal */  
+main {  
+    padding: 40px;  
+    max-width: 800px;  
+    margin: 30px auto;  
+    background-color: #fff;  
+    border-radius: 8px;  
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);  
+}  
+
+.title {
+    text-align: center;
+}
+
+.sub {
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 4vh;
+}
+
+/* Estilo do Cartão da Equipe */  
+.equipe-card {  
+    background-color: #fae3c7;  
+    border: 1px solid #8b5e3c;  
+    border-radius: 10px;  
+    padding: 20px;  
+    margin-bottom: 20px;  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);  
+}  
+
+/* Informações da Equipe */  
+.equipe-info {  
+    margin-bottom: 15px;  
+}  
+
+.equipe-info p {  
+    margin: 5px 0;  
+    font-size: 1.1rem;  
+}  
+
+/* Avaliação dos Membros */  
+.equipe-avaliacao h3 {  
+    color: #8b5e3c;  
+    margin: 15px 0;  
+}  
+
+.membro-avaliacao {  
+    display: flex;  
+    align-items: center;  
+    justify-content: space-between;  
+    margin-bottom: 15px;  
+}  
+
+.membro-avaliacao label {  
+    font-weight: bold;  
+    color: #6d4c41;  
+    flex: 1;  
+}  
+
+/* Estilo dos Inputs */  
+.membro-avaliacao input[type="number"],  
+#equipe-select,  
+textarea {  
+    width: calc(100% - 20px); /* Full width but with padding */  
+    padding: 10px;  
+    border: 2px solid #8b5e3c;  
+    border-radius: 6px;  
+    background-color: #fff;  
+    text-align: center;  
+    font-size: 1rem;  
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);  
+    transition: border-color 0.3s;  
+}  
+
+.membro-avaliacao input[type="number"]:focus,  
+#equipe-select:focus,  
+textarea:focus {  
+    outline: none;  
+    border-color: #6d4c2c;  
+}  
+
+/* Botão de Salvar */  
+.btn-salvar {  
+    display: block;  
+    width: 100%;  
+    background-color: #8b5e3c;  
+    border: none;  
+    color: white;  
+    padding: 12px;  
+    font-size: 1rem;  
+    font-weight: bold;  
+    border-radius: 8px;  
+    cursor: pointer;  
+    transition: background-color 0.3s ease, transform 0.2s ease;  
+    margin-top: 20px;  
+}  
+
+.btn-salvar:hover {  
+    background-color: #6d4c2c;  
+    transform: translateY(-2px);  
+}  
+
+/* Sombreamento Suave nas Caixas */  
+.equipe-card {  
+    transition: box-shadow 0.3s ease;  
+}  
+
+.equipe-card:hover {  
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);  
+}  
+
+/* Font e Importação */  
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+/* Estilo dos Inputs e Caixas de Nota */  
+.membro-avaliacao input[type="number"],  
+#equipe-select,  
+textarea {  
+    width: calc(100% - 20px); /* Largura total menos a margem */  
+    padding: 12px;  
+    border: 1px solid #d1c6b7; /* Cor de borda mais suave */  
+    border-radius: 8px; /* Bordas arredondadas */  
+    background-color: #fff; /* Fundo branco */  
+    text-align: center; /* Centralizando o texto */  
+    font-size: 1rem;  
+    font-family: inherit; /* Mantém a fonte do corpo */  
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */  
+    transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave */  
+}  
+
+.membro-avaliacao input[type="number"]:focus,  
+#equipe-select:focus,  
+textarea:focus {  
+    outline: none; /* Remove o contorno padrão */  
+    border-color: #8b5e3c; /* Cor da borda quando em foco */  
+    box-shadow: 0 0 5px rgba(139, 94, 60, 0.5); /* Adiciona uma sombra mais intensa */  
+}  
+
+/* Estilo do Textarea */  
+textarea {  
+    height: 80px; /* Altura padrão para a textarea */  
+    resize: none; /* Impede redimensionamento */  
+}  
+
+/* Melhorias nos Labels */  
+.membro-avaliacao label {  
+    font-weight: bold;  
+    color: #6d4c41;  
+    margin-bottom: 5px; /* Espaçamento abaixo do label */  
+    display: block; /* Faz com que o label ocupe a linha inteira */  
+}  
+
+/* Sombreamento Suave nas Caixas */  
+.equipe-card {  
+    transition: box-shadow 0.3s ease;  
+}  
+
+.equipe-card:hover {  
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Sombra mais intensa ao passar o mouse */  
+}

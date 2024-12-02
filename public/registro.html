@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - RH Movelaria</title>
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Registro</h1>
+    <p>Crie sua conta para acessar o sistema.</p>
+    <form id="registroForm">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+      
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+      
+      <label for="categoria">Categoria:</label>
+      <select id="categoria" name="categoria" required>
+        <option value="adm">Administrador</option>
+        <option value="lider">Líder de Equipe</option>
+      </select>
+      
+      <button type="submit">Registrar</button>
+    </form>
+    <a href="index.html" class="register-link">Já tem uma conta? Faça login</a>
+  </div>
+
+  <script>
+    document.getElementById('registroForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value;
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+      const categoria = document.getElementById('categoria').value;
+
+      const response = await fetch('/api/registro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email, senha, categoria })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert('Registro bem-sucedido!');
+        window.location.href = 'index.html';
+      } else {
+        alert(data.message);
+      }
+    });
+  </script>
+</body>
+</html>

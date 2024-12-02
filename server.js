@@ -297,9 +297,15 @@ app.get('/api/equipes', async (req, res) => {
     }
 });
 
+// server.js
 app.get('/api/avaliacoes', async (req, res) => {
     try {
-        const avaliacoes = await Avaliacao.find().populate('equipe').populate('membros');
+        const equipes = await Equipe.find({}, { nome: 1, avaliacoes: 1, comentarios: 1 });
+        const avaliacoes = equipes.map(equipe => ({
+            nome: equipe.nome,
+            avaliacoes: equipe.avaliacoes,
+            comentarios: equipe.comentarios
+        }));
         res.json(avaliacoes);
     } catch (error) {
         console.error('Erro ao buscar avaliações:', error);
@@ -307,7 +313,7 @@ app.get('/api/avaliacoes', async (req, res) => {
     }
 });
 
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Tratamento de erros
 app.use((err, req, res, next) => {
@@ -320,3 +326,49 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
+
+
+// Schema de Usuários
+const usuarioSchema = new mongoose.Schema({
+    nome: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    senha: { type: String, required: true },
+    categoria: { type: String, enum: ['adm', 'lider'], required: true },
+    createdAt: { type: Date, default: Date.now }
+  });
+  
+  const Usuario = mongoose.model('Usuario', usuarioSchema);
+  
+  // Rotas de registro
+  app.post('/api/registro', async (req, res) => {
+    try {
+      const { nome, email, senha, categoria } = req.body;
+      if (!['adm', 'lider'].includes(categoria)) {
+        return res.status(400).json({ message: 'Categoria inválida' });
+      }
+  
+      const novoUsuario = new Usuario({ nome, email, senha, categoria });
+      await novoUsuario.save();
+      res.status(201).json({ message: 'Usuário registrado com sucesso' });
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao registrar usuário', error: error.message });
+    }
+  });
+  
+  // Rotas de login
+  app.post('/api/login', async (req, res) => {
+    try {
+      const { email, senha } = req.body;
+      const usuario = await Usuario.findOne({ email, senha });
+  
+      if (!usuario) {
+        return res.status(401).json({ message: 'Credenciais inválidas' });
+      }
+  
+      res.json({ categoria: usuario.categoria });
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao fazer login', error: error.message });
+    }
+  });
+  
+
